@@ -1,3 +1,4 @@
+#include "config.hpp"
 #include "render.hpp"
 #include <SDL2/SDL_image.h>
 
@@ -9,10 +10,12 @@ static SDL_Renderer* renderer = nullptr;
 static SDL_Window* window = nullptr;
 static char* base_path;
 static uint_fast16_t max_filename_length = 0;
+static SDL_Texture* screen_texture;
+static SDL_Rect screen_box = { 0, 0, CONFIG_WIDTH, CONFIG_HEIGHT };
 
 int render_init()
 {
-	window = SDL_CreateWindow( "Boskeopolis Land II", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, 800, 448, SDL_WINDOW_OPENGL );
+	window = SDL_CreateWindow( "Boskeopolis Land II", SDL_WINDOWPOS_UNDEFINED, SDL_WINDOWPOS_UNDEFINED, CONFIG_WIDTH, CONFIG_HEIGHT, SDL_WINDOW_OPENGL );
 	if ( window == nullptr )
 	{
 		SDL_Log( "Could not create window: %s\n", SDL_GetError() );
@@ -39,6 +42,7 @@ int render_init()
 		++temp_base_path;
 	}
 	max_filename_length += 255;
+	screen_texture = SDL_CreateTexture( renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, CONFIG_WIDTH, CONFIG_HEIGHT );
 	return 0;
 }
 
@@ -53,6 +57,7 @@ void render_clear_screen()
 {
     SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
     SDL_RenderClear( renderer );
+	//SDL_SetRenderTarget( renderer, screen_texture );
 }
 
 void render_present_screen()
@@ -63,6 +68,14 @@ void render_present_screen()
 void render_sprite( BL2Texture texture, const BL2Rect* src, const BL2Rect* dest )
 {
 	SDL_RenderCopy( renderer, textures[ texture ], src, dest );
+};
+
+void render_color_screen( BL2Color color )
+{
+	SDL_SetRenderDrawBlendMode( renderer, SDL_BLENDMODE_MOD );
+	SDL_SetRenderDrawColor( renderer, color.r, color.g, color.b, color.a );
+	SDL_RenderFillRect( renderer, &screen_box );
+	SDL_SetRenderDrawBlendMode( renderer, SDL_BLENDMODE_NONE );
 };
 
 BL2Texture render_load_texture( const char* name )
