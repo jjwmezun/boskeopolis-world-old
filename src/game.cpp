@@ -17,6 +17,7 @@ int game_init()
 	keycodes[ SDL_SCANCODE_RIGHT ] = INPUT_RIGHT;
 	keycodes[ SDL_SCANCODE_DOWN ] = INPUT_DOWN;
 	keycodes[ SDL_SCANCODE_LEFT ] = INPUT_LEFT;
+	keycodes[ SDL_SCANCODE_Z ] = INPUT_CONFIRM;
 
 	return 0;
 }

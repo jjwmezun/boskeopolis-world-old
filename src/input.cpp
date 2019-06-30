@@ -1,7 +1,7 @@
 #include "input.hpp"
 #include "main.hpp"
 
-#define INPUT_LIMIT 5
+#define INPUT_LIMIT 6
 
 bool keys_held[ INPUT_LIMIT ] = { false };
 

@@ -6,7 +6,8 @@ enum Input
 	INPUT_UP,
 	INPUT_RIGHT,
 	INPUT_DOWN,
-	INPUT_LEFT
+	INPUT_LEFT,
+	INPUT_CONFIRM
 };
 
 void input_init();
