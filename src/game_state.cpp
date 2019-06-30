@@ -1,7 +1,5 @@
 #include "game_state.hpp"
-#include "overworld_state.hpp"
-
-#include <cstdio>
+#include "title_state.hpp"
 
 #define MAX_GAME_STATES 5
 
@@ -13,7 +11,7 @@ static void render_state( GameState* state );
 
 void game_state_init()
 {
-	game_states[ 0 ] = overworld_state_create();
+	game_states[ 0 ] = title_state_create();
 	init_state( &game_states[ 0 ] );
 };
 
@@ -39,6 +37,13 @@ void game_state_render()
 		}
 		render_state( &game_states[ i ] );
 	}
+};
+
+void game_state_change( GameState state )
+{
+	game_states[ 0 ] = state;
+	init_state( &game_states[ 0 ] );
+	game_states[ 1 ].type = GSTATE_NULL;
 };
 
 static void init_state( GameState* state )

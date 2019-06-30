@@ -1,6 +1,8 @@
 #include "collision.hpp"
+#include "config.hpp"
 #include "input.hpp"
 #include "overworld_state.hpp"
+#include "sprite.hpp"
 
 #define AUTUMN_WIDTH 64
 #define ANIMATION_LIMIT 2
