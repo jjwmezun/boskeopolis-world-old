@@ -1,5 +1,6 @@
 #pragma once
 
+#include "message_state_data.hpp"
 #include "overworld_state_data.hpp"
 #include "title_state_data.hpp"
 
@@ -15,6 +16,7 @@ union GameStateData
 {
 	TitleStateData title;
 	OverworldStateData overworld;
+	MessageStateData message;
 };
 
 struct GameState
@@ -30,3 +32,4 @@ void game_state_init();
 void game_state_update( int ticks );
 void game_state_render();
 void game_state_change( GameState state );
+void game_state_push( GameState state );

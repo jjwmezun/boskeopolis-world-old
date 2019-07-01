@@ -1,11 +1,16 @@
 #include "collision.hpp"
 #include "config.hpp"
 #include "input.hpp"
+#include "message_state.hpp"
 #include "overworld_state.hpp"
 #include "sprite.hpp"
 
 #define AUTUMN_WIDTH 64
 #define ANIMATION_LIMIT 2
+
+void overworld_state_update( int ticks, GameStateData* data );
+void overworld_state_render( GameStateData* data );
+void overworld_state_init( GameStateData* data );
 
 void overworld_state_update( int ticks, GameStateData* data )
 {
@@ -34,6 +39,7 @@ void overworld_state_update( int ticks, GameStateData* data )
 	{
 		if ( collision_box_test( &data->overworld.autumn.position, &data->overworld.locked_door ) )
 		{
+			game_state_push( message_state_create( "It's locked.\nLuckily, I have the key in my pocket, since it's not like I'd be able to find it anywhere else." ) );
 		}
 	}
 

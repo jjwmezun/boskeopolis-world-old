@@ -22,6 +22,7 @@ void render_close();
 void render_clear_screen();
 void render_present_screen();
 void render_sprite( BL2Texture texture, const BL2Rect* src, const BL2Rect* dest );
+void render_rect( const BL2Rect* rect, const BL2Color* color );
 BL2Texture render_load_texture( const char* name );
 void render_color_screen( BL2Color color );
 void render_create_new_texture( int width, int height );

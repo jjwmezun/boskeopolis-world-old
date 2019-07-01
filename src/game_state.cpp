@@ -4,6 +4,7 @@
 #define MAX_GAME_STATES 5
 
 static GameState game_states[ MAX_GAME_STATES ] = {};
+static int states_used = 0;
 
 static void init_state( GameState* state );
 static void update_state( GameState* state, int ticks );
@@ -13,28 +14,18 @@ void game_state_init()
 {
 	game_states[ 0 ] = title_state_create();
 	init_state( &game_states[ 0 ] );
+	states_used = 1;
 };
 
 void game_state_update( int ticks )
 {
-	for ( int i = 0; i < MAX_GAME_STATES; ++i )
-	{
-		if ( game_states[ i ].type == GSTATE_NULL )
-		{
-			return;
-		}
-		update_state( &game_states[ i ], ticks );
-	}
+	update_state( &game_states[ states_used - 1 ], ticks );
 };
 
 void game_state_render()
 {
-	for ( int i = 0; i < MAX_GAME_STATES; ++i )
+	for ( int i = 0; i < states_used; ++i )
 	{
-		if ( game_states[ i ].type == GSTATE_NULL )
-		{
-			return;
-		}
 		render_state( &game_states[ i ] );
 	}
 };
@@ -43,7 +34,15 @@ void game_state_change( GameState state )
 {
 	game_states[ 0 ] = state;
 	init_state( &game_states[ 0 ] );
+	states_used = 1;
 	game_states[ 1 ].type = GSTATE_NULL;
+};
+
+void game_state_push( GameState state )
+{
+	game_states[ states_used ] = state;
+	init_state( &game_states[ states_used ] );
+	++states_used;
 };
 
 static void init_state( GameState* state )

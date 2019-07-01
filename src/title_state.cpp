@@ -7,6 +7,10 @@
 #define LOGO_WIDTH 1100
 #define LOGO_HEIGHT 113
 
+void title_state_update( int ticks, GameStateData* data );
+void title_state_render( GameStateData* data );
+void title_state_init( GameStateData* data );
+
 GameState title_state_create()
 {
 	return

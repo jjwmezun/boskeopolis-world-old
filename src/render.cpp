@@ -72,6 +72,12 @@ void render_sprite( BL2Texture texture, const BL2Rect* src, const BL2Rect* dest 
 	SDL_RenderCopy( renderer, textures[ texture ], src, dest );
 };
 
+void render_rect( const BL2Rect* rect, const BL2Color* color )
+{
+	SDL_SetRenderDrawColor( renderer, color->r, color->g, color->b, color->a );
+	SDL_RenderFillRect( renderer, rect );
+};
+
 void render_color_screen( BL2Color color )
 {
 	SDL_SetRenderDrawBlendMode( renderer, SDL_BLENDMODE_MOD );
