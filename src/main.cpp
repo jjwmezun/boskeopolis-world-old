@@ -2,6 +2,7 @@
 #include "game_state.hpp"
 #include "main.hpp"
 #include "render.hpp"
+#include "text.hpp"
 
 void main_update( int ticks );
 void main_render();
@@ -16,6 +17,7 @@ int main()
 		return -1;
 	}
 
+	text_init();
 	game_state_init();
 	while ( still_running )
 	{

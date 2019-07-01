@@ -1,6 +1,7 @@
 #include "input.hpp"
 #include "render.hpp"
 #include "overworld_state.hpp"
+#include "text.hpp"
 #include "title_state.hpp"
 
 #define LOGO_WIDTH 1100
@@ -28,14 +29,19 @@ void title_state_update( int ticks, GameStateData* data )
 
 void title_state_render( GameStateData* data )
 {
-	render_sprite( data->title.logo_texture, &data->title.logo_src, &data->title.logo_dest );
+	sprite_graphics_render( &data->title.logo );
+	sprite_graphics_render( &data->title.press_start );
 };
 
 void title_state_init( GameStateData* data )
 {
-	data->title = {
-		{ 0, 0, LOGO_WIDTH, LOGO_HEIGHT },
-		{ 50, 50, LOGO_WIDTH, LOGO_HEIGHT },
-		render_load_texture( "logo.png" )
+	data->title =
+	{
+		{
+			render_load_texture( "logo.png" ),
+			{ 0, 0, LOGO_WIDTH, LOGO_HEIGHT },
+			{ 50, 50, LOGO_WIDTH, LOGO_HEIGHT }
+		},
+		text_create_texture_center_x( "Press Start", 200 )
 	};
 };

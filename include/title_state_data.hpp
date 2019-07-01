@@ -1,10 +1,10 @@
 #pragma once
 
 #include "render.hpp"
+#include "sprite_graphics.hpp"
 
 struct TitleStateData
 {
-	BL2Rect logo_src;
-	BL2Rect logo_dest;
-	BL2Texture logo_texture;
+	SpriteGraphics logo;
+	SpriteGraphics press_start;
 };

@@ -12,6 +12,7 @@ static char* base_path;
 static uint_fast16_t max_filename_length = 0;
 static SDL_Texture* screen_texture;
 static SDL_Rect screen_box = { 0, 0, CONFIG_WIDTH, CONFIG_HEIGHT };
+static SDL_Texture* render_to_texture = nullptr;
 
 int render_init()
 {
@@ -42,7 +43,7 @@ int render_init()
 		++temp_base_path;
 	}
 	max_filename_length += 255;
-	screen_texture = SDL_CreateTexture( renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_TARGET, CONFIG_WIDTH, CONFIG_HEIGHT );
+	screen_texture = SDL_GetRenderTarget( renderer );
 	return 0;
 }
 
@@ -55,13 +56,14 @@ void render_close()
 
 void render_clear_screen()
 {
+	//SDL_SetRenderTarget( renderer, screen_texture );
     SDL_SetRenderDrawColor( renderer, 255, 255, 255, 255 );
     SDL_RenderClear( renderer );
-	//SDL_SetRenderTarget( renderer, screen_texture );
 }
 
 void render_present_screen()
 {
+	//SDL_SetRenderTarget( renderer, screen_texture );
 	SDL_RenderPresent( renderer );
 }
 
@@ -105,5 +107,27 @@ BL2Texture render_load_texture( const char* name )
 	textures[ number_of_textures ] = texture;
 	BL2Texture texture_id = number_of_textures;
 	++number_of_textures;
+	return texture_id;
+};
+
+void render_create_new_texture( int width, int height )
+{
+	SDL_Texture* texture = SDL_CreateTexture( renderer, SDL_PIXELFORMAT_ABGR8888, SDL_TEXTUREACCESS_TARGET, width, height );
+	if ( texture == nullptr )
+	{
+		printf( "Failed to allocate clear texture: %s\n", SDL_GetError() );
+	}
+	SDL_SetTextureBlendMode( texture, SDL_BLENDMODE_BLEND );
+	SDL_SetRenderTarget( renderer, texture );
+	render_to_texture = texture;
+};
+
+BL2Texture render_finish_new_texture_creation()
+{
+	textures[ number_of_textures ] = render_to_texture;
+	BL2Texture texture_id = number_of_textures;
+	++number_of_textures;
+	SDL_SetRenderTarget( renderer, screen_texture );
+	render_to_texture = nullptr;
 	return texture_id;
 };
