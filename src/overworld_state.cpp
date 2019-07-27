@@ -1,6 +1,7 @@
 #include "collision.hpp"
 #include "config.hpp"
 #include "input.hpp"
+#include "level_state.hpp"
 #include "message_state.hpp"
 #include "overworld_state.hpp"
 #include "sprite.hpp"

@@ -3,17 +3,7 @@
 
 void sprite_update_acceleration( Sprite* sprite )
 {
-	sprite->vx += sprite->accx;
-	if ( sprite->vx > sprite->maxv )
-	{
-		sprite->vx = sprite->maxv;
-	}
-	else if ( sprite->vx < -sprite->maxv )
-	{
-		sprite->vx = -sprite->maxv;
-	}
-	sprite->position.x += sprite->vx;
-
+	sprite_update_x_acceleration( sprite );
 	sprite->vy += sprite->accy;
 	if ( sprite->vy > sprite->maxv )
 	{
@@ -25,6 +15,20 @@ void sprite_update_acceleration( Sprite* sprite )
 	}
 
 	sprite->position.y += sprite->vy;
+}
+
+void sprite_update_x_acceleration( Sprite* sprite )
+{
+	sprite->vx += sprite->accx;
+	if ( sprite->vx > sprite->maxv )
+	{
+		sprite->vx = sprite->maxv;
+	}
+	else if ( sprite->vx < -sprite->maxv )
+	{
+		sprite->vx = -sprite->maxv;
+	}
+	sprite->position.x += sprite->vx;
 }
 
 void sprite_update_by_input( Sprite* sprite )

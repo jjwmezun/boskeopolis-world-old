@@ -1,6 +1,6 @@
 #include "input.hpp"
 #include "render.hpp"
-#include "overworld_state.hpp"
+#include "level_state.hpp"
 #include "text.hpp"
 #include "title_state.hpp"
 
@@ -27,7 +27,7 @@ void title_state_update( int ticks, GameStateData* data )
 {
 	if ( input_held( INPUT_CONFIRM ) )
 	{
-		game_state_change( overworld_state_create() );
+		game_state_change( level_state_create() );
 	}
 };
 

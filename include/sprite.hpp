@@ -14,4 +14,5 @@ struct Sprite
 };
 
 void sprite_update_acceleration( Sprite* sprite );
+void sprite_update_x_acceleration( Sprite* sprite );
 void sprite_update_by_input( Sprite* sprite );

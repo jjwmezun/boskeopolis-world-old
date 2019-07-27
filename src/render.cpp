@@ -72,6 +72,11 @@ void render_sprite( BL2Texture texture, const BL2Rect* src, const BL2Rect* dest 
 	SDL_RenderCopy( renderer, textures[ texture ], src, dest );
 };
 
+void render_sprite_advanced( BL2Texture texture, const BL2Rect* src, const BL2Rect* dest, SDL_RendererFlip flip )
+{
+	SDL_RenderCopyEx( renderer, textures[ texture ], src, dest, 0.0, nullptr, flip );
+}
+
 void render_rect( const BL2Rect* rect, const BL2Color* color )
 {
 	SDL_SetRenderDrawColor( renderer, color->r, color->g, color->b, color->a );
@@ -81,9 +86,14 @@ void render_rect( const BL2Rect* rect, const BL2Color* color )
 void render_color_screen( BL2Color color )
 {
 	SDL_SetRenderDrawBlendMode( renderer, SDL_BLENDMODE_MOD );
+	render_rect_fullscreen( color );
+	SDL_SetRenderDrawBlendMode( renderer, SDL_BLENDMODE_NONE );
+};
+
+void render_rect_fullscreen( BL2Color color )
+{
 	SDL_SetRenderDrawColor( renderer, color.r, color.g, color.b, color.a );
 	SDL_RenderFillRect( renderer, &screen_box );
-	SDL_SetRenderDrawBlendMode( renderer, SDL_BLENDMODE_NONE );
 };
 
 BL2Texture render_load_texture( const char* name )

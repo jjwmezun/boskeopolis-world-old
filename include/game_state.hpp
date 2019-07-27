@@ -1,5 +1,6 @@
 #pragma once
 
+#include "level_state_data.hpp"
 #include "message_state_data.hpp"
 #include "overworld_state_data.hpp"
 #include "title_state_data.hpp"
@@ -9,7 +10,8 @@ enum GameStateType
 	GSTATE_NULL,
 	GSTATE_TITLE,
 	GSTATE_OVERWORLD,
-	GSTATE_MESSAGE
+	GSTATE_MESSAGE,
+	GSTATE_LEVEL
 };
 
 union GameStateData
@@ -17,6 +19,7 @@ union GameStateData
 	TitleStateData title;
 	OverworldStateData overworld;
 	MessageStateData message;
+	LevelStateData level;
 };
 
 struct GameState
