@@ -118,7 +118,7 @@ void level_update_hero( LevelHero* hero )
 		if ( hero->walk_timer >= 8 )
 		{
 			++hero->walk_animation;
-			if ( hero->walk_animation > 5 )
+			if ( hero->walk_animation > 7 )
 			{
 				hero->walk_animation = 0;
 			}
